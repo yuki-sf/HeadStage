@@ -1,115 +1,222 @@
-# HeadStage
+# HeadStage 
 
-HeadStage is a Windows desktop prototype that uses your webcam to estimate which monitor you are facing, then pans assigned app audio sessions toward the matching left/right headphone channel.
+> Turn your headphones into a virtual soundstage for your monitor setup.
+
+HeadStage is a Windows desktop application that uses webcam-based head
+tracking to determine which monitor you're looking at and intelligently
+shifts application audio toward that screen.
+
+Watching a YouTube video on the left monitor? The audio gently moves
+left.
+
+Joining a Discord call on the right monitor? Voices drift toward the
+right ear.
+
+Instead of every application competing for the center of your
+headphones, HeadStage creates the feeling that sound comes from the
+screen you're actually using.
+
+<p align="center">
+  <a href="https://github.com/yuki-sf/HeadStage/releases/latest">
+    <img src="https://img.shields.io/badge/Download-Windows%20EXE-success?style=for-the-badge&logo=windows" />
+  </a>
+</p>
+
+------------------------------------------------------------------------
+
+## Why HeadStage?
+
+Traditional multi-monitor setups give you visual separation but not
+audio separation.
+
+HeadStage bridges that gap by creating a more natural listening
+experience:
+
+-   Focus on the content you're actually viewing
+-   Reduce cognitive load when multitasking
+-   Improve immersion for games and media
+-   Keep conversations and videos attached to their screens
+-   Make a triple-monitor setup feel surprisingly physical
+
+------------------------------------------------------------------------
 
 ## Features
 
-- Calibrate any number of screens by looking at each screen and pressing Record.
-- Assign active Windows audio sessions such as Chrome, Edge, Discord, games, or media players to screens.
-- Auto-map audio sessions by matching their app windows to the monitor they are on.
-- Manually capture the focused app/window for a screen when automatic browser matching is ambiguous.
-- Smoothly pan each assigned session based on where that screen is relative to your current head position.
-- Smooth volume and pan transitions so audio moves naturally instead of jumping.
-- Keep the screen you are facing centered in both headphones.
-- Give the screen you are currently looking at a relative focus boost by gently lowering the other screens.
-- Dry run mode for testing before the app changes audio.
-- Auto-restore when your face is lost and on app close.
-- Save and load calibration profiles.
+### Head Tracking
 
-## Install
+-   Uses your webcam to estimate head position and viewing direction.
+-   Supports MediaPipe tracking with OpenCV fallback detection.
 
-Use Python 3.10 or newer on Windows.
+### Multi-Monitor Calibration
 
-~~~powershell
-cd C:\Users\sambh\Documents\Codex\2026-06-28\i-want-to-create-a-opencv\outputs\headstage
+-   Works with dual-monitor, triple-monitor, ultrawide, and custom
+    layouts.
+-   Add as many screens as you need and calibrate them in seconds.
+
+### Smart Audio Routing
+
+-   Assign audio sessions from Chrome, Discord, Spotify, games, media
+    players, and more.
+-   Smoothly shifts stereo positioning based on where you're looking.
+
+### Automatic Session Detection
+
+-   Automatically detects active audio sessions.
+-   Automatically maps applications to monitors whenever possible.
+
+### Multiple Mapping Methods
+
+-   **Auto Map** for automatic monitor detection.
+-   **Focus in 3s** for quick manual assignment.
+-   **Session Dropdown** for full manual control.
+
+### Audio Controls
+
+-   Adjustable transition speed.
+-   Configurable stereo spread.
+-   Focus boost for the active monitor.
+-   Isolation mode for distraction-free listening.
+-   Per-screen volume controls.
+
+### Profiles
+
+-   Save monitor layouts and audio mappings.
+-   Quickly switch between desk setups.
+-   Automatically restore your configuration on startup.
+
+### Safety Features
+
+-   Dry-run mode for testing.
+-   Automatic audio restoration if tracking is lost.
+-   Automatic recovery when the application closes.
+
+------------------------------------------------------------------------
+
+## Installation
+
+There isn't one.
+
+Simply open the `dist` folder and launch:
+
+``` text
+HeadStage.exe
+```
+
+No Python installation.
+
+No PowerShell commands.
+
+No virtual environments.
+
+Just run the executable and you're ready to go.
+
+------------------------------------------------------------------------
+
+## First-Time Setup
+
+1.  Launch **HeadStage.exe**
+2.  Start audio playback in the applications you want to control.
+3.  Verify that the camera preview can see your face.
+4.  Leave **Dry Run** enabled for initial testing.
+5.  Look at your left monitor and press **Record**.
+6.  Repeat for the center and right monitors.
+7.  Press **Auto Map** to detect applications automatically.
+8.  If an application is missing, use **Focus in 3s** and click the
+    target window.
+9.  Disable **Dry Run** and enable **Audio Control**.
+
+Congratulations --- your monitors now have directionally-aware audio.
+
+------------------------------------------------------------------------
+
+## Audio Mapping Methods
+
+### Auto Map
+
+Scans visible windows, determines which monitor they occupy, and
+attempts to match them with active audio sessions.
+
+### Focus in 3s
+
+Press the button and switch to the target application. HeadStage
+captures the focused window and assigns it to the selected screen.
+
+### Session Dropdown
+
+For browsers and stubborn applications, manually select the audio
+session from the list.
+
+------------------------------------------------------------------------
+
+## Profiles
+
+Profiles save:
+
+-   Screen calibration
+-   Audio mappings
+-   Volume settings
+-   Application preferences
+-   UI settings
+
+Profiles are stored in:
+
+``` text
+Documents\HeadStage\Profiles
+```
+
+------------------------------------------------------------------------
+
+## Building From Source
+
+Developers can still run HeadStage directly from source:
+
+``` powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-~~~
-
-If MediaPipe is unavailable on your Python version, the app still works with OpenCV face detection:
-
-~~~powershell
-python -m pip install opencv-python numpy pycaw comtypes pillow psutil
-~~~
-
-## Run
-
-~~~powershell
+pip install -r requirements.txt
 python headstage.py
-~~~
+```
 
-Or run:
+To create a standalone executable:
 
-~~~powershell
-.\run_headstage.ps1
-~~~
-
-## First Setup
-
-1. Start audio in the apps you want to control. Windows only exposes active audio sessions.
-2. Open HeadStage and confirm the webcam preview sees your face.
-3. Leave Dry run enabled.
-4. Look at the left monitor and press Record in that row.
-5. Repeat for center and right.
-6. Press Auto map to let HeadStage match app windows to monitors.
-7. If a browser or Discord session is missed, press Focus in 3s on the correct screen row, then click the app/window that is playing sound.
-8. You can also choose a session directly from the dropdown for fully manual mapping.
-9. Disable Dry run, then enable Audio control.
-
-## Important Windows Audio Note
-
-Windows per-app stereo balance depends on the audio driver and Windows session API support. When channel balance is available, HeadStage pans left and right directly. If channel balance is unavailable for a session, it falls back to per-session volume shaping instead of crashing.
-
-## Mapping Audio To Screens
-
-HeadStage now has three mapping methods. Keep the screen rows in physical left-to-right order before pressing Auto map:
-
-- **Auto map**: scans visible windows, detects which physical monitor they are on, and matches those windows to active Windows audio sessions. This works best for apps with one window and one audio process.
-- **Focus in 3s**: click this on a screen row, then focus the app/window playing sound. HeadStage captures the focused window and maps its likely audio session to that screen.
-- **Session dropdown**: direct manual override for stubborn cases. This is useful for Chrome or Edge when multiple tabs/windows share similar audio processes.
-
-For YouTube in Chrome/Edge, start playback first. Windows often exposes browser audio as a process rather than as a specific tab, so the focused-window method is the most reliable manual fallback.
-
-## Build The EXE
-
-Run this from the HeadStage folder:
-
-~~~powershell
+``` powershell
 .\build_exe.ps1
-~~~
+```
 
-The executable will be created at:
+------------------------------------------------------------------------
 
-~~~text
-dist\HeadStage.exe
-~~~
+## Camera Troubleshooting
 
-The build script installs PyInstaller into the local virtual environment, includes the app icon, and packages the app as a single windowed executable.
+If the camera preview does not appear:
 
-## New Audio Controls
+**Windows Settings → Privacy & Security → Camera**
 
-- **Focus boost**: makes the screen you are looking at much louder relative to the others. Because Windows does not normally allow per-app audio above 100%, this works by keeping the focused screen high and lowering the non-focused screens more strongly.
-- **Transition speed**: controls how quickly pan and volume move toward the new target. Lower values are silkier; higher values are more responsive.
-- **Max volume**: caps the overall output level so the focus boost has room to work without becoming harsh.
+Ensure that desktop applications are allowed to access the camera.
 
-## Profiles And EXE Notes
+HeadStage automatically attempts multiple OpenCV camera backends and
+camera indexes to maximize compatibility.
 
-Profiles are saved in your Documents folder at:
+------------------------------------------------------------------------
 
-~~~text
-Documents\HeadStage\Profiles
-~~~
+## Known Limitations
 
-This keeps profiles available when running the packaged .exe, even though a one-file Windows app unpacks its internal files into a temporary folder.
+-   Windows only exposes applications that are actively playing audio.
+-   Browser tabs frequently share a single audio session.
+-   Some audio drivers do not support direct stereo balance control.
 
-If the .exe cannot open the camera, check Windows Settings > Privacy & security > Camera and make sure desktop apps are allowed to use the camera. HeadStage now also tries DirectShow, Media Foundation, and the default OpenCV backend across the first few camera indexes.
+When direct panning is unavailable, HeadStage automatically falls back
+to volume shaping instead.
 
-The **Minimize to tray** option hides HeadStage from the taskbar when minimized. Use the tray icon menu to show or exit the app.
+------------------------------------------------------------------------
 
-## Final Audio Controls
+## The Future
 
-- **Per-screen volume**: each screen row has its own volume slider. Use this to tame loud apps or lift quiet apps before focus boost is applied.
-- **Isolation mode**: when enabled, only the screen you are facing remains audible. Other assigned screens fade down to mute using the same transition smoothing.
-- **Auto-save profile**: saves your calibration, mappings, per-screen volumes, and preferences to the default profile when the app closes.
-- **Default profile auto-load**: HeadStage now loads the default profile from Documents\HeadStage\Profiles on startup when it exists.
+HeadStage is currently an experimental prototype exploring a simple
+idea:
+
+> If our screens exist in physical space, maybe our audio should too.
+
+If you've ever pointed at the wrong monitor while talking to someone on
+Discord, lost track of which YouTube tab was making noise, or wished
+your headphones understood your setup a little better --- HeadStage was
+built for you.
