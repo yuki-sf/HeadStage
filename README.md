@@ -40,6 +40,16 @@ experience:
 
 ------------------------------------------------------------------------
 
+## Preview
+
+Below is a preview of the HeadStage interface application actively tracking user head movement and mapping orientation data to a multi-monitor configuration:
+
+<p align="center">
+  <img src="https://i.postimg.cc/tgXDhXJ9/Head-Stage.png" alt="HeadStage Interface Preview" width="55%">
+</p>
+
+------------------------------------------------------------------------
+
 ## Features
 
 ### Head Tracking
@@ -96,11 +106,7 @@ experience:
 
 There isn't one.
 
-Simply open the `dist` folder and launch:
-
-``` text
-HeadStage.exe
-```
+Simply open the `dist` folder and run `HeadStage.exe` as administrator.
 
 No Python installation.
 
