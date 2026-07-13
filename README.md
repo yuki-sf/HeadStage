@@ -45,7 +45,7 @@ experience:
 Below is a preview of the HeadStage interface application actively tracking user head movement and mapping orientation data to a multi-monitor configuration:
 
 <p align="center">
-  <img src="https://i.postimg.cc/tgXDhXJ9/Head-Stage.png" alt="HeadStage Interface Preview" width="55%">
+  <img src="https://i.postimg.cc/gJG5kf1K/Head-Stage.png" alt="HeadStage Interface Preview" width="75%">
 </p>
 
 ------------------------------------------------------------------------
